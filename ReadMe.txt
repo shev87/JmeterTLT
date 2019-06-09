@@ -1,2 +1,2 @@
-Исполяняемый файл (открыть) - /jMeterFiles/tlt.jmx
-выходной файл с ответом - /apache-jmeter-5.1.1/bin/!Solution.csv
+п»їРСЃРїРѕР»СЏРЅСЏРµРјС‹Р№ С„Р°Р№Р» (РѕС‚РєСЂС‹С‚СЊ) - /jMeterFiles/tlt.jmx
+РІС‹С…РѕРґРЅРѕР№ С„Р°Р№Р» СЃ РѕС‚РІРµС‚РѕРј - /apache-jmeter-5.1.1/bin/!Solution.csv
