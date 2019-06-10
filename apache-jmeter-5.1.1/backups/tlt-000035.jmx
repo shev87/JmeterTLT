@@ -16,7 +16,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="outFile" elementType="Argument">
             <stringProp name="Argument.name">outFile</stringProp>
-            <stringProp name="Argument.value">D:\LoadTesting\jMeterFiles\Solution.csv</stringProp>
+            <stringProp name="Argument.value">!Solution.csv</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -77,9 +77,9 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <stringProp name="LoopController.loops">3</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">3</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -108,9 +108,9 @@
           <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">variable</stringProp>
-            <stringProp name="RegexExtractor.regex">&lt;span&gt;.*?&lt;/span&gt;</stringProp>
+            <stringProp name="RegexExtractor.regex">&lt;span&gt;Сегодня&lt;/span&gt;[\w\W\s]+&lt;span&gt;Вчера&lt;/span&gt;</stringProp>
             <stringProp name="RegexExtractor.template">$0$</stringProp>
-            <stringProp name="RegexExtractor.default">null</stringProp>
+            <stringProp name="RegexExtractor.default">today is no news at all</stringProp>
             <stringProp name="RegexExtractor.match_number">1</stringProp>
           </RegexExtractor>
           <hashTree/>
@@ -119,7 +119,16 @@
           <stringProp name="BeanShellSampler.query">import java.io.*;
 String fileName = vars.get(&quot;outFile&quot;);
 String var = vars.get(&quot;variable&quot;);
-var = var.substring(6, s.length()-7);
+String[] strings = var.split(&quot;\n&quot;);
+        for (String s : strings){
+             if (!s.trim().matches(&quot;&lt;.+?|&gt;|&lt;/&quot;)){
+                if (var.contains(&quot;&amp;#171;&quot;)) var = var.replace(&quot;&amp;#171;&quot;, &quot;«&quot;);
+                if (var.contains(&quot;&amp;#187;&quot;)) var = var.replace(&quot;&amp;#187;&quot;, &quot;»&quot;);
+                var = s.trim();
+                print(var);
+                break;
+            }
+        }
 
 /*-- variable - variable from regexp --*/
 
