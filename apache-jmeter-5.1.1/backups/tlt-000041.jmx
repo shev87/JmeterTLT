@@ -106,11 +106,11 @@
         </HTTPSamplerProxy>
         <hashTree>
           <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
-            <stringProp name="RegexExtractor.useHeaders">code</stringProp>
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">variable</stringProp>
             <stringProp name="RegexExtractor.regex">&lt;span&gt;Сегодня&lt;/span&gt;[\w\W\s]+&lt;span&gt;Вчера&lt;/span&gt;</stringProp>
             <stringProp name="RegexExtractor.template">$0$</stringProp>
-            <stringProp name="RegexExtractor.default">null</stringProp>
+            <stringProp name="RegexExtractor.default">today is no news at all</stringProp>
             <stringProp name="RegexExtractor.match_number">1</stringProp>
           </RegexExtractor>
           <hashTree/>
@@ -121,14 +121,15 @@ String fileName = vars.get(&quot;outFile&quot;);
 String var = vars.get(&quot;variable&quot;);
 String[] strings = var.split(&quot;\n&quot;);
         for (String s : strings){
-           // if (s.trim().matches(&quot;[А-Яа-я\\s\\W]+&quot;)){
-             if (!s.trim().matches(&quot;&lt;.+?|&gt;|&lt;/&quot;)){
+             if (!s.trim().matches(&quot;&lt;.+?|&gt;|&lt;/&quot;)){            
                 var = s.trim();
+                if (var.contains(&quot;&amp;#171;&quot;)) var = var.replace(&quot;&amp;#171;&quot;, &quot;\&quot;&quot;);
+                if (var.contains(&quot;&amp;#187;&quot;)) var = var.replace(&quot;&amp;#187;&quot;, &quot;\&quot;&quot;);
                 print(var);
                 break;
             }
         }
-
+		
 /*-- variable - variable from regexp --*/
 
 String data= var + &quot;\n&quot;;

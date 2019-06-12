@@ -125,11 +125,11 @@ String[] strings = var.split(&quot;\n&quot;);
                 var = s.trim();
                 if (var.contains(&quot;&amp;#171;&quot;)) var = var.replace(&quot;&amp;#171;&quot;, &quot;\&quot;&quot;);
                 if (var.contains(&quot;&amp;#187;&quot;)) var = var.replace(&quot;&amp;#187;&quot;, &quot;\&quot;&quot;);
-                print(var);
                 break;
             }
         }
-
+	if (var.matches(&quot;&lt;.+?|&gt;|&lt;/&quot;)) var = &quot;today is no news at all&quot;;
+	print(var);
 /*-- variable - variable from regexp --*/
 
 String data= var + &quot;\n&quot;;
